@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{chngpage}
+\usepackage{float} 
+\usepackage{graphicx}
+\graphicspath{{./imagens/}}
+
+\title{Trabalho Prático Nº.1 – Protocolos da Camada de Transporte - Grupo PL1 - 6 }
+\author{Alexandre Soares (a93267) \and Simão Cunha (a93262) \and Pedro Sousa (a93225)}
+\date{29 de outubro de 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Questões e Respostas}
+
+\textbf{Questões: parte I}
+
+\begin{enumerate}
+    \item \textit{De que forma as perdas e duplicações de pacotes afetaram o desempenho das aplicações?} \newline
+    As perdas e duplicações afetam o desempenho da aplicação no caso de esta usar TCP pois no caso de haver este tipo de erros a aplicação tem de esperar que a camada de transporte os corrija.\newline \newline
+    \textit{Que camada lidou com as perdas e duplicações: transporte ou aplicação?}\newline
+    Foi a camada de transporte (TCP).
+    
+    
+    \item \textit{Obtenha a partir do wireshark, ou desenhe manualmente, um diagrama temporal para a transferência de file1 por FTP. 
+    Foque-se apenas na transferência de dados [ftp-data] e não na conexão de controlo, pois o FTP usa mais que uma conexão em simultâneo. 
+    Identifique, se aplicável, as fases de início de conexão, transferência de dados e fim de conexão.
+    Identifique também os tipos de segmentos trocados e os números de sequência usados quer nos dados como nas confirmações}
+    
+    \begin{figure}[H]
+    \includegraphics[width=15cm,height=3cm] {imagens/ftp.png}
+    \end{figure}
+    
+    \pagebreak
+    \textbf{Protocolo de Transporte Usado:} TCP.\newline
+    \textbf{Início de conexão:} O inicio da conexão para a transferencia de dados está trocas de [SYN] $\rightarrow$ [SYN,ACK] $\rightarrow$ [ACK] (Linhas 2 a 4).\newline
+    \textbf{Transferência de dados:} os dados são tranferidos a partir da porta 59006.\newline
+    \textbf{Fim de conexão:} O fim da conexão ocorre quando sao trocados os pacotes [FIN,ACK] $\rightarrow$ [FIN,ACK] $\rightarrow$ [ACK] (Linhas 7 a 9) entre o server e cliente. \newline
+    \textbf{Tipos de segmentos trocados:} SYN, FIN e ACK. \newline
+    \textbf{Números de sequência:} No inicio da conexão os numeros de sequência sao 0 e 1, para a transferencia são 179 e 1 e para fechar a ligação são 255 e 1. \newline
+    
+    \item \textit{Obtenha a partir do wireshark, ou desenhe manualmente, um diagrama temporal para a transferência de file1 por TFTP. Identifique, se aplicável, as fases de início de conexão, transferência de dados e fim de conexão. Identifique também os tipos de segmentos trocados e os números de sequência usados quer nos dados como nas confirmações.}
+    
+    
+    \begin{figure}[H]
+    \includegraphics[width=15cm,height=1.75cm] {imagens/ftfp.png}
+    \centering
+    \end{figure}
+    
+    \textbf{Protocolo de Transporte Usado:} UDP.\newline
+    \textbf{Início de conexão:} não se aplica, pois o TFTP usa como camada de transporte o UDP, um protocolo não orientado à conexão.\newline
+    \textbf{Transferência de dados:} os dados são tranferidos a partir da porta 59006.\newline
+    \textbf{Fim de conexão:} não se aplica, pois o TFTP usa como camada de transporte o UDP, um protocolo não orientado à conexão. \newline
+    \textbf{Tipos de segmentos trocados:} não existem. \newline
+    \textbf{Números de sequência:} não existem. \newline
+    
+    \item \textit{Compare sucintamente as quatro aplicações de transferência de ficheiros que usou nos seguintes pontos. \newline 
+    (i) uso da camada de transporte;} \newline
+    As aplicações que usam o protocolo de transporte TCP nomeadamente FTP,HTTP, SFTP usam bastante a camada de transporte enquanto que a aplicação TFTP usa UDP e, por isso, o uso desta camada é muito pouco. \newline \newline 
+    \textit {(ii) eficiência;} \newline
+    As aplicações que usam o protocolo de tranporte TCP(FTP,HTTP,SFTP) demoraram em média 7 ms e a aplicação que usa UDP(TFTP) demorou 5 ms. \newline \newline 
+    \textit {(iii) complexidade;} \newline
+    Em termos de complexidade a aplicação TFTP é a menos complexa porque só envia os ficheiros pedidos sem estabelecer uma ligação. A aplicação HTTP é um pouco mais complexa porque estabelece uma ligação só para enviar o ficheiro.
+    A aplicação SFTP é mais complexa que a anterior porque faz uma ligação para pedidos e tranferências.  
+    A aplicação FTP é a mais complexa das 4 porque establece uma para pedidos e outra para tranferência de dados. \newline \newline 
+    \textit{(iv) segurança;}\newline
+    Em termos de segurança as aplicações HTTP TFTP FTP não fazem
+    qualquer tipo de encriptação da mensagem dos pacotes tornado-os legíveis no WireShark. A aplicação SFTP encripta as mensagens dos pacotes através do método "DIFFIE-HELLMAN KEYEXCHANGE". \newline
+    
+
+\end{enumerate}
+
+
+\textbf{Questões: parte II}
+
+\par
+
+Com base na captura de pacotes feita, preencha a seguinte tabela, identificando para cada aplicação executada, qual o
+protocolo de aplicação, o protocolo de transporte, porta de atendimento e overhead de transporte.
+
+\begin{table}[H]
+\centering
+\medskip
+\begin{adjustwidth}{-1.40in}{-1.40in}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\begin{tabular}[c]{@{}l@{}}\textit{Comando usado}\\ \textit{(aplicação)}\end{tabular} &
+\begin{tabular}[c]{@{}l@{}}\textit{Protocolo de Aplicação}\\ \textit{(se aplicável)}\end{tabular} &
+\begin{tabular}[c]{@{}l@{}}\textit{Protocolo de transporte}\\ \textit{(se aplicável)}\end{tabular} &
+\begin{tabular}[c]{@{}l@{}}\textit{Porta de atendimento}\\ \textit{(se aplicável)}\end{tabular} &
+\begin{tabular}[c]{@{}l@{}}\textit{Overhead de transporte}\\ \textit{em bytes (se aplicável)}\end{tabular} \\ \hline
+ping          &-  &-  &-  &-  \\ \hline
+traceroute    &-  &udp  &33434 $\rightarrow$ 33445  &8  \\ \hline
+telnet        &telnet  &tcp  &23  &32  \\ \hline
+ftp           &ftp  &tcp  &21  &32  \\ \hline
+tftp          &tftp  &udp  &69  &8  \\ \hline
+http(browser) &http  &tcp  &80  &32  \\ \hline
+nslookup      &dns  &tcp  &53  &32  \\ \hline
+ssh           &ssh  &tcp  &22  &32  \\ \hline
+\end{tabular}
+\end{adjustwidth}
+\medskip
+\end{table}
+
+\pagebreak
+\section{Conclusões}
+
+Este trabalho prático n°1 (TP1) serviu para observar a captura dos pacotes do \textit{file1} 
+através dos vários protocolos de transporte como o \textit{SFTP}, \textit{FTP}, \textit{TFTP}, 
+\textit{HTTP}, etc. 
+Além disso, também utilizamos o software \textit{wireshark} para efetuar a captura do tráfego no 
+acesso a várias aplicações com os diferentes protocolos referidos na tabela acima. \par
+Depois de responder a todas as perguntas do enunciado, podemos retirar algumas conclusões:
+
+\begin{enumerate}
+    \item  o protocolo de transporte \textit{TCP} é ligado à conexão,pois usa uma mensagem para sinalizar inicio e fim da mesma, enquanto o \textit{UDP} é usado para pedidos e transferência de informação.
+    \item o protocolo \textit{TCP} deteta e corrige erros ligados a transmissão de pacotes, mas o \textit{UDP} não.
+    \item o overhead do \textit{TCP} é maior que o do \textit{UDP}, devido às funcionalidades descritas no ponto 2.
+    \item as aplicações que usam \textit{TCP} normalmente demoram mais tempo a transmitir dados do que as que usam \textit{UDP} devido ao ponto 2.
+    \item a segurança das mensagens está apenas dependente da camada de aplicação, sendo o único trabalho da camada de transporte enviar uma mensagem de um máquina para outra.
+\end{enumerate}
+
+\end{document}
