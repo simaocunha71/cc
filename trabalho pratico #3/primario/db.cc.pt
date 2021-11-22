@@ -1,0 +1,35 @@
+
+$TTL	604800
+@	IN	SOA	ns.cc.pt. g06pl01.cc.pt. (
+			     41		; Serial
+			      5		; Refresh
+			     20		; Retry
+			    200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+
+@	IN	NS	Servidor1.cc.pt.
+@	IN	NS	Golfinho.cc.pt.
+mail	IN	MX	10 Servidor2.cc.pt.
+mail	IN	MX	20 Servidor3.cc.pt.
+imap    IN      MX	20 Servidor3.cc.pt.
+pop     IN      MX	20 Servidor3.cc.pt.
+
+ns	IN	CNAME	Servidor1
+ns2	IN	CNAME	Golfinho
+
+www	IN	CNAME	Servidor2
+
+Servidor1	IN	A	10.2.2.1	
+Servidor2	IN	A	10.2.2.2
+Servidor3	IN	A	10.2.2.3
+
+Orca	IN	A	10.3.3.1
+Golfinho	IN	A	10.3.3.2
+Foca	IN	A	10.3.3.3
+
+g06	IN	CNAME	Portatil1
+
+Portatil1	IN	A	10.1.1.1
+Portatil2	IN	A	10.1.1.2
+Portatil3	IN	A	10.1.1.3

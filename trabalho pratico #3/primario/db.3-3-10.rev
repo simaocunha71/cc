@@ -1,0 +1,16 @@
+
+$TTL	604800
+@	IN	SOA	ns.cc.pt. g06pl01.cc.pt. (
+			     41		; Serial
+			      5		; Refresh
+			     20		; Retry
+			    200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+
+@	IN	NS	Servidor1.cc.pt.
+@	IN	NS	Golfinho.cc.pt.
+
+1	IN	PTR	Orca.cc.pt.
+2	IN	PTR	Golfinho.cc.pt.
+3	IN	PTR	Foca.cc.pt.
